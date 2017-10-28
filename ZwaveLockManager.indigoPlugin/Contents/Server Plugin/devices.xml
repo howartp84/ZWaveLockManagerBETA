@@ -1,0 +1,281 @@
+<?xml version="1.0"?>
+
+<Devices>
+	<!-- This custom device illustrates how a plugin can update custom device
+	states which can be used in Device State Changed triggers, conditionals,
+	and inspected on Control Pages. The python runConcurrentThread() method
+	will update the states every second.
+	-->
+	<Device type="custom" id="doorLock">
+		<Name>Door Lock</Name>
+		<ConfigUI>
+			<Field id="deviceId" type="menu">
+				<Label>ZWave Door Lock:</Label>
+				<List class="indigo.devices" filter="indigo.zwave"/>
+			</Field>
+		</ConfigUI>
+		<States>
+			<State id="lockState">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Lock state</TriggerLabel>
+				<ControlPageLabel>Lock state</ControlPageLabel>
+			</State>
+			<State id="latchState">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Latch state</TriggerLabel>
+				<ControlPageLabel>Latch state</ControlPageLabel>
+			</State>
+			<State id="handleState">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Handle state</TriggerLabel>
+				<ControlPageLabel>Handle state</ControlPageLabel>
+			</State>
+			<State id="boltState">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Bolt state</TriggerLabel>
+				<ControlPageLabel>Bolt state</ControlPageLabel>
+			</State>
+			<State id="lastUser">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Last user</TriggerLabel>
+				<ControlPageLabel>Last user</ControlPageLabel>
+			</State>
+			<State id="alarmState">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Alarm state</TriggerLabel>
+				<ControlPageLabel>Alarm state</ControlPageLabel>
+			</State>
+			<State id="userList1">
+				<ValueType>String</ValueType>
+				<TriggerLabel>User list 1</TriggerLabel>
+				<ControlPageLabel>User list 1</ControlPageLabel>
+			</State>
+			<State id="userList1Name">
+				<ValueType>String</ValueType>
+				<TriggerLabel>User list 1 name</TriggerLabel>
+				<ControlPageLabel>User list 1 name</ControlPageLabel>
+			</State>
+			<State id="userList2">
+				<ValueType>String</ValueType>
+				<TriggerLabel>User list 2</TriggerLabel>
+				<ControlPageLabel>User list 2</ControlPageLabel>
+			</State>
+			<State id="userList2Name">
+				<ValueType>String</ValueType>
+				<TriggerLabel>User list 2 name</TriggerLabel>
+				<ControlPageLabel>User list 2 name</ControlPageLabel>
+			</State>
+			<State id="userList3">
+				<ValueType>String</ValueType>
+				<TriggerLabel>User list 3</TriggerLabel>
+				<ControlPageLabel>User list 3</ControlPageLabel>
+			</State>
+			<State id="userList3Name">
+				<ValueType>String</ValueType>
+				<TriggerLabel>User list 3 name</TriggerLabel>
+				<ControlPageLabel>User list 3 name</ControlPageLabel>
+			</State>
+		</States>
+		<UiDisplayStateId>lockState</UiDisplayStateId>
+	</Device>
+
+	<Device type="custom" id="doorLockGroup">
+		<Name>Door Lock Group</Name>
+		<ConfigUI>
+			<Field id="door1" type="menu">
+				<Label>Door Lock 1:</Label>
+				<List class="indigo.devices" filter="self.doorLock"/>
+			</Field>
+			<Field id="door2" type="menu">
+				<Label>Door Lock 2:</Label>
+				<List class="indigo.devices" filter="self.doorLock"/>
+			</Field>
+			<Field id="door3" type="menu">
+				<Label>Door Lock 3:</Label>
+				<List class="indigo.devices" filter="self.doorLock"/>
+			</Field>
+			<Field id="door4" type="menu">
+				<Label>Door Lock 4:</Label>
+				<List class="indigo.devices" filter="self.doorLock"/>
+			</Field>
+			<Field id="door5" type="menu">
+				<Label>Door Lock 5:</Label>
+				<List class="indigo.devices" filter="self.doorLock"/>
+			</Field>
+			<Field id="door6" type="menu">
+				<Label>Door Lock 6:</Label>
+				<List class="indigo.devices" filter="self.doorLock"/>
+			</Field>
+			<Field id="door7" type="menu">
+				<Label>Door Lock 7:</Label>
+				<List class="indigo.devices" filter="self.doorLock"/>
+			</Field>
+			<Field id="door8" type="menu">
+				<Label>Door Lock 8:</Label>
+				<List class="indigo.devices" filter="self.doorLock"/>
+			</Field>
+			<Field id="door9" type="menu">
+				<Label>Door Lock 9:</Label>
+				<List class="indigo.devices" filter="self.doorLock"/>
+			</Field>
+			<Field id="door10" type="menu">
+				<Label>Door Lock 10:</Label>
+				<List class="indigo.devices" filter="self.doorLock"/>
+			</Field>
+		</ConfigUI>
+		<States>
+			<State id="lockState">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Lock state</TriggerLabel>
+				<ControlPageLabel>Lock state</ControlPageLabel>
+			</State>
+		</States>
+		<UiDisplayStateId>lockState</UiDisplayStateId>
+	</Device>
+
+	<Device type="custom" id="userList">
+		<Name>Lock User List</Name>
+		<ConfigUI>
+			<Field id="lHeader1" type="label">
+        <Label>Here you can define a list of usernames, IDs and PINs, then apply them to locks or lock groups in bulk.</Label>
+	    </Field>
+	    <Field id="lHeader2" type="label">
+        <Label>An 'Active' user will be processed when this list is applied to a lock - including enabling/disabling the PIN as selected. Only tick 'Active' for users that you use in your house to save flooding the Z-Wave network with unnecessary commands.</Label>
+	    </Field>
+
+			<Field type="separator" id="sep1" />
+
+			<Field id="tActive1" type="checkbox" defaultValue="false">
+				<Label>User 1 Active:</Label>
+			</Field>
+			<Field id="tName1" type="textfield" visibleBindingId="tActive1" visibleBindingValue="true" defaultValue="User 1">
+			    <Label>Name:</Label>
+			</Field>
+			<Field id="tPin1" type="textfield" visibleBindingId="tActive1" visibleBindingValue="true" defaultValue="">
+			    <Label>PIN:</Label>
+			</Field>
+			<Field id="tEnabled1" type="checkbox" visibleBindingId="tActive1" visibleBindingValue="true" defaultValue="false">
+			    <Label>Enabled:</Label>
+			</Field>
+
+			<Field id="tActive2" type="checkbox" defaultValue="false">
+				<Label>User 2 Active:</Label>
+			</Field>
+			<Field id="tName2" type="textfield" visibleBindingId="tActive2" visibleBindingValue="true" defaultValue="User 2">
+			    <Label>Name:</Label>
+			</Field>
+			<Field id="tPin2" type="textfield" visibleBindingId="tActive2" visibleBindingValue="true" defaultValue="">
+			    <Label>PIN:</Label>
+			</Field>
+			<Field id="tEnabled2" type="checkbox" visibleBindingId="tActive2" visibleBindingValue="true" defaultValue="false">
+			    <Label>Enabled:</Label>
+			</Field>
+
+			<Field id="tActive3" type="checkbox" defaultValue="false">
+				<Label>User 3 Active:</Label>
+			</Field>
+			<Field id="tName3" type="textfield" visibleBindingId="tActive3" visibleBindingValue="true" defaultValue="User 3">
+			    <Label>Name:</Label>
+			</Field>
+			<Field id="tPin3" type="textfield" visibleBindingId="tActive3" visibleBindingValue="true" defaultValue="">
+			    <Label>PIN:</Label>
+			</Field>
+			<Field id="tEnabled3" type="checkbox" visibleBindingId="tActive3" visibleBindingValue="true" defaultValue="false">
+			    <Label>Enabled:</Label>
+			</Field>
+
+			<Field id="tActive4" type="checkbox" defaultValue="false">
+				<Label>User 4 Active:</Label>
+			</Field>
+			<Field id="tName4" type="textfield" visibleBindingId="tActive4" visibleBindingValue="true" defaultValue="User 4">
+			    <Label>Name:</Label>
+			</Field>
+			<Field id="tPin4" type="textfield" visibleBindingId="tActive4" visibleBindingValue="true" defaultValue="">
+			    <Label>PIN:</Label>
+			</Field>
+			<Field id="tEnabled4" type="checkbox" visibleBindingId="tActive4" visibleBindingValue="true" defaultValue="false">
+			    <Label>Enabled:</Label>
+			</Field>
+
+			<Field id="tActive5" type="checkbox" defaultValue="false">
+				<Label>User 5 Active:</Label>
+			</Field>
+			<Field id="tName5" type="textfield" visibleBindingId="tActive5" visibleBindingValue="true" defaultValue="User 5">
+			    <Label>Name:</Label>
+			</Field>
+			<Field id="tPin5" type="textfield" visibleBindingId="tActive5" visibleBindingValue="true" defaultValue="">
+			    <Label>PIN:</Label>
+			</Field>
+			<Field id="tEnabled5" type="checkbox" visibleBindingId="tActive5" visibleBindingValue="true" defaultValue="false">
+			    <Label>Enabled:</Label>
+			</Field>
+
+			<Field id="tActive6" type="checkbox" defaultValue="false">
+				<Label>User 6 Active:</Label>
+			</Field>
+			<Field id="tName6" type="textfield" visibleBindingId="tActive6" visibleBindingValue="true" defaultValue="User 6">
+			    <Label>Name:</Label>
+			</Field>
+			<Field id="tPin6" type="textfield" visibleBindingId="tActive6" visibleBindingValue="true" defaultValue="">
+			    <Label>PIN:</Label>
+			</Field>
+			<Field id="tEnabled6" type="checkbox" visibleBindingId="tActive6" visibleBindingValue="true" defaultValue="false">
+			    <Label>Enabled:</Label>
+			</Field>
+
+			<Field id="tActive7" type="checkbox" defaultValue="false">
+				<Label>User 7 Active:</Label>
+			</Field>
+			<Field id="tName7" type="textfield" visibleBindingId="tActive7" visibleBindingValue="true" defaultValue="User 7">
+			    <Label>Name:</Label>
+			</Field>
+			<Field id="tPin7" type="textfield" visibleBindingId="tActive7" visibleBindingValue="true" defaultValue="">
+			    <Label>PIN:</Label>
+			</Field>
+			<Field id="tEnabled7" type="checkbox" visibleBindingId="tActive7" visibleBindingValue="true" defaultValue="false">
+			    <Label>Enabled:</Label>
+			</Field>
+
+			<Field id="tActive8" type="checkbox" defaultValue="false">
+				<Label>User 8 Active:</Label>
+			</Field>
+			<Field id="tName8" type="textfield" visibleBindingId="tActive8" visibleBindingValue="true" defaultValue="User 8">
+			    <Label>Name:</Label>
+			</Field>
+			<Field id="tPin8" type="textfield" visibleBindingId="tActive8" visibleBindingValue="true" defaultValue="">
+			    <Label>PIN:</Label>
+			</Field>
+			<Field id="tEnabled8" type="checkbox" visibleBindingId="tActive8" visibleBindingValue="true" defaultValue="false">
+			    <Label>Enabled:</Label>
+			</Field>
+
+			<Field id="tActive9" type="checkbox" defaultValue="false">
+				<Label>User 9 Active:</Label>
+			</Field>
+			<Field id="tName9" type="textfield" visibleBindingId="tActive9" visibleBindingValue="true" defaultValue="User 9">
+			    <Label>Name:</Label>
+			</Field>
+			<Field id="tPin9" type="textfield" visibleBindingId="tActive9" visibleBindingValue="true" defaultValue="">
+			    <Label>PIN:</Label>
+			</Field>
+			<Field id="tEnabled9" type="checkbox" visibleBindingId="tActive9" visibleBindingValue="true" defaultValue="false">
+			    <Label>Enabled:</Label>
+			</Field>
+
+			<Field id="tActive10" type="checkbox" defaultValue="false">
+				<Label>User 10 Active:</Label>
+			</Field>
+			<Field id="tName10" type="textfield" visibleBindingId="tActive10" visibleBindingValue="true" defaultValue="User 10">
+			    <Label>Name:</Label>
+			</Field>
+			<Field id="tPin10" type="textfield" visibleBindingId="tActive10" visibleBindingValue="true" defaultValue="">
+			    <Label>PIN:</Label>
+			</Field>
+			<Field id="tEnabled10" type="checkbox" visibleBindingId="tActive10" visibleBindingValue="true" defaultValue="false">
+			    <Label>Enabled:</Label>
+			</Field>
+
+		</ConfigUI>
+	</Device>
+
+</Devices>
